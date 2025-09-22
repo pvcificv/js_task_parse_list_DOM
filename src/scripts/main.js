@@ -31,5 +31,6 @@ function getEmployees(listElement) {
 sortList(employeeList);
 
 const employees = getEmployees(employeeList);
+const pre = document.createElement('pre');
 
-console.log(employees);
+pre.textContent = JSON.stringify(employees, null, 2);
