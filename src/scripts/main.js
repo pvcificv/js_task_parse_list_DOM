@@ -1,30 +1,35 @@
-function sortList() {
-  const list = document.querySelector('ul');
-  const items = Array.from(list.querySelectorAll('li'));
+function parseSalary(salaryStr) {
+  return Number(salaryStr.replace(/\D/g, ''));
+}
+
+const employeeList = document.querySelector('ul');
+
+function sortList(listElement) {
+  const items = Array.from(listElement.querySelectorAll('li'));
 
   items.sort((a, b) => {
-    const salaryA = Number(a.dataset.salary.replace(/\D/g, ''));
-    const salaryB = Number(b.dataset.salary.replace(/\D/g, ''));
+    const salaryA = parseSalary(a.dataset.salary);
+    const salaryB = parseSalary(b.dataset.salary);
 
     return salaryB - salaryA;
   });
 
-  items.forEach((item) => list.appendChild(item));
+  items.forEach((item) => listElement.appendChild(item));
 }
 
-function getEmployeesArray() {
-  const items = document.querySelectorAll('ul li');
+function getEmployees(listElement) {
+  const items = listElement.querySelectorAll('li');
 
   return Array.from(items).map((li) => ({
     name: li.textContent.trim(),
     position: li.dataset.position,
-    salary: Number(li.dataset.salary.replace(/\D/g, '')),
+    salary: parseSalary(li.dataset.salary),
     age: Number(li.dataset.age),
   }));
 }
 
-sortList();
+sortList(employeeList);
 
-const employees = getEmployeesArray();
+const employees = getEmployees(employeeList);
 
-print(employees);
+console.log(employees);
